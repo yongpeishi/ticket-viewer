@@ -21,8 +21,10 @@ The application require several environment variable to run.
 To start a web server for the application, run:
 
 ```
-ZENDESK_EMAIL={email} ZENDESK_PASSWORD={password} ZENDESK_SUBDOMAIN={domain} lein ring server
+ZENDESK_EMAIL={email} ZENDESK_PASSWORD={password} ZENDESK_SUBDOMAIN={domain} lein ring server 3001
 ```
+
+The server will be started at localhost:3001
 
 ### Test
 

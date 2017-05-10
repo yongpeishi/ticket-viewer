@@ -1,5 +1,5 @@
 (defproject frontend "0.1.0-SNAPSHOT"
-  :description "FIXME: write this!"
+  :description "A simple Ticket Viever to view a list of ticket"
   :url "http://example.com/FIXME"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
