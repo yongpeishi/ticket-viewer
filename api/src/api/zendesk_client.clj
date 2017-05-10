@@ -2,14 +2,8 @@
   (:require [org.httpkit.client :as http]
             [cheshire.core :as json]))
 
-(def api-url
-  (let [subdomain (System/getenv "ZENDESK_SUBDOMAIN")]
-    (str "https://" subdomain ".zendesk.com/api/v2")))
-
-(def options
-  (let [email    (System/getenv "ZENDESK_EMAIL")
-        password (System/getenv "ZENDESK_PASSWORD")]
-    {:basic-auth [email password]}))
+(defn api-url [subdomain]
+  (str "https://" subdomain ".zendesk.com/api/v2"))
 
 (defn get-request [url options]
   (let [response @(http/get url options)
@@ -24,8 +18,10 @@
         :ticket
         (select-keys [:subject :description :updated_at]))))
 
-(defn get-ticket [ticket-number]
-  (let [url                   (str api-url "/tickets/" ticket-number ".json")
+(defn get-ticket [ticket-number config]
+  (let [endpoint              (api-url (:subdomain config))
+        url                   (str endpoint "/tickets/" ticket-number ".json")
+        options               {:basic-auth [(:user config) (:password config)]}
         {:keys [status body]} (get-request url options)]
     (case status
       200 (ticket-details body)

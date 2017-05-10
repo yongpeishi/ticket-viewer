@@ -12,23 +12,27 @@
       {:status 500 :body {:error (str "Zendesk API responded with status: " status)}}
       {:status 500 :body {:error "Something went wrong"}})))
 
-(defroutes app-routes
-  (GET "/" [] "Ticket Viewer API")
+(defn app-routes [config]
+  (routes
+   (GET "/" [] "Ticket Viewer API")
 
-  (GET "/tickets/:ticket-number" [ticket-number]
-       (try
+   (GET "/tickets/:ticket-number" [ticket-number]
+        (try
 
-         (let [details (get-ticket ticket-number)]
-           (if (nil? details)
-             {:status 404 :body {:error "Unable to get ticket"}}
-             (response details)))
+          (let [details (get-ticket ticket-number config)]
+            (if (nil? details)
+              {:status 404 :body {:error "Unable to get ticket"}}
+              (response details)))
 
-         (catch Exception e
-           (handle-error e))))
+          (catch Exception e
+            (handle-error e))))
 
-  (route/not-found "Not Found"))
+   (route/not-found "Not Found")))
 
 (def app
-  (-> app-routes
-      (wrap-json-response)
-      (wrap-defaults site-defaults)))
+  (let [config {:user      (System/getenv "ZENDESK_EMAIL")
+                :password  (System/getenv "ZENDESK_PASSWORD")
+                :subdomain (System/getenv "ZENDESK_SUBDOMAIN")}]
+    (-> (app-routes config)
+        (wrap-json-response)
+        (wrap-defaults site-defaults))))
