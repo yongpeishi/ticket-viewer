@@ -11,14 +11,16 @@
 
   (GET "/tickets/:ticket-number" [ticket-number]
        (try
-         (response (get-ticket ticket-number))
+         (let [details (get-ticket ticket-number)]
+           (if (nil? details)
+             {:status 404 :body {:error "Unable to get ticket"}}
+             (response details)))
 
          (catch Exception e
            (let [status (-> e ex-data :response-status)]
-             (cond
-               (= "404" status)    {:status 404 :body {:error "Unable to get ticket"}}
-               (not (nil? status)) {:status 500 :body {:error (str "Zendesk API responded with status: " status)}}
-               :else               {:status 500 :body {:error "Something went wrong"}})))))
+             (if status
+               {:status 500 :body {:error (str "Zendesk API responded with status: " status)}}
+               {:status 500 :body {:error "Something went wrong"}})))))
 
   (route/not-found "Not Found"))
 
