@@ -6,21 +6,25 @@
             [ring.util.response :refer [response]]
             [api.zendesk-client :refer [get-ticket]]))
 
+(defn handle-error [e]
+  (let [status (-> e ex-data :response-status)]
+    (if status
+      {:status 500 :body {:error (str "Zendesk API responded with status: " status)}}
+      {:status 500 :body {:error "Something went wrong"}})))
+
 (defroutes app-routes
   (GET "/" [] "Ticket Viewer API")
 
   (GET "/tickets/:ticket-number" [ticket-number]
        (try
+
          (let [details (get-ticket ticket-number)]
            (if (nil? details)
              {:status 404 :body {:error "Unable to get ticket"}}
              (response details)))
 
          (catch Exception e
-           (let [status (-> e ex-data :response-status)]
-             (if status
-               {:status 500 :body {:error (str "Zendesk API responded with status: " status)}}
-               {:status 500 :body {:error "Something went wrong"}})))))
+           (handle-error e))))
 
   (route/not-found "Not Found"))
 
