@@ -12,15 +12,21 @@
     {:basic-auth [email password]}))
 
 (defn get-request [url options]
-  (let [{:keys [status body error]} @(http/get url options)]
+  (let [response @(http/get url options)
+        error    (:error response)]
     (if error
       (println "Failed with exception: " error)
-      body)))
+      (select-keys response [:status :body]))))
 
-(defn get-ticket [ticket-number]
-  (let [url            (str api-url "/tickets/" ticket-number ".json")
-        convert-to-key true]
-    (-> (get-request url options)
-        (json/parse-string convert-to-key)
+(defn ticket-details [response-body]
+  (let [convert-to-key true]
+    (-> (json/parse-string response-body convert-to-key)
         :ticket
         (select-keys [:subject :description :updated_at]))))
+
+(defn get-ticket [ticket-number]
+  (let [url                   (str api-url "/tickets/" ticket-number ".json")
+        {:keys [status body]} (get-request url options)]
+    (if (= status 200)
+      (ticket-details body)
+      nil)))

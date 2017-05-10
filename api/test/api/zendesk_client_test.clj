@@ -4,12 +4,17 @@
             [clojure.test :refer :all]))
 
 (deftest get-ticket
-  (testing "successful"
+  (testing "get ticket successfully"
     (let [expected {:subject     "Fire! Fire!"
                     :description "My cat jumped on the table and knocked over the candle."
                     :updated_at  "some date"}]
       (with-redefs [sut/get-request (fn [_ _]
                                       (let [data (assoc expected :random "thing")]
-                                        (json/generate-string {:ticket data})))]
-        (is (= (sut/get-ticket 1) expected))))))
+                                        {:status 200
+                                         :body (json/generate-string {:ticket data})}))]
+        (is (= (sut/get-ticket 1) expected)))))
+
+  (testing "get ticket unsuccessful"
+    (with-redefs [sut/get-request (fn [_ _] {:status 404})]
+      (is (= (sut/get-ticket 1) nil)))))
 
