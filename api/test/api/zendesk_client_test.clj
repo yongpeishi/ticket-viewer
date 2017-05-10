@@ -14,7 +14,7 @@
                                          :body (json/generate-string {:ticket data})}))]
         (is (= (sut/get-ticket 1) expected)))))
 
-  (testing "get ticket unsuccessful"
+  (testing "when not 200"
     (with-redefs [sut/get-request (fn [_ _] {:status 404})]
-      (is (= (sut/get-ticket 1) nil)))))
+      (is (thrown-with-msg? clojure.lang.ExceptionInfo #"API error" (sut/get-ticket 123))))))
 

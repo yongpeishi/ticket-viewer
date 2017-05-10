@@ -29,4 +29,4 @@
         {:keys [status body]} (get-request url options)]
     (if (= status 200)
       (ticket-details body)
-      nil)))
+      (throw (ex-info "API error" {:response-status status})))))
