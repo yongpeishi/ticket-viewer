@@ -7,8 +7,8 @@
    [:p
     [:span "View ticket number:"]
     [:span [:input {:type      "text"
-                    :value     (get-in @app-state [:single :number])
-                    :on-change c/set-requested-ticket-number}]]
+                    :value     (get-in @app-state [:ticket :number-entered])
+                    :on-change c/set-ticket-number}]]
     [:button {:type     "submit"
               :on-click c/get-ticket-handler}
      "Submit"]]])

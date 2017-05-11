@@ -2,6 +2,6 @@
   (:require [reagent.core :as reagent]))
 
 (defonce app-state
-  (reagent/atom {:view   :single
-                 :single {}}))
+  (reagent/atom {:ticket {:number-entered ""
+                          :details        {}}}))
 

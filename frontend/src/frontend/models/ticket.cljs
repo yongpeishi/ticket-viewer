@@ -1,9 +1,7 @@
 (ns frontend.models.ticket)
 
-(defn update-ticket [state details]
-  (let [result (update-in state [:single] merge details) ]
-    (println state)
-    (println details)
-    (println result)
-    result
-    ))
+(defn update-ticket-details [state details]
+  (assoc-in state [:ticket :details] details))
+
+(defn set-number [state num]
+  (assoc-in state [:ticket :number-entered] num))
