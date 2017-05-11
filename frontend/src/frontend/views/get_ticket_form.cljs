@@ -4,12 +4,12 @@
 (defn get-ticket-form [number-entered]
   [:div
    [:p
-    [:span "View ticket number:"]
+    [:span "Enter ticket number: "]
     [:span [:input {:type      "text"
                     :value     number-entered
                     :on-change c/set-ticket-number}]]
     [:button {:type     "submit"
               :on-click c/get-ticket}
-     "Submit"]]])
+     "View"]]])
 
 

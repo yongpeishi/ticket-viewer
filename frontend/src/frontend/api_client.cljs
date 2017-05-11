@@ -2,7 +2,7 @@
   (:require [cljs.core.async :as c]
             [ajax.core :refer [GET]]))
 
-(def api-url "http://localhost:3001")
+(def api-url "http://localhost:3000")
 
 (defn get-request [url]
   (let [chan (c/promise-chan)]
