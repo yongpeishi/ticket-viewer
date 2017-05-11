@@ -1,4 +1,22 @@
-.ticket-details .label {
+body {
+    font-family: Helvetica, Arial, Sans-Serif;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    width: 800px;
+}
+
+.error {
+    color: red;
+}
+
+.ticket-details .section {
+    padding-bottom: 10px;
+}
+
+.ticket-details label {
     font-weight: bold;
 }
 

@@ -4,7 +4,7 @@
   [:div.error msg])
 
 (defn not-found []
-  (error-msg "Cannot find the ticket you requested."))
+  (error-msg "Error: Cannot find the ticket you requested."))
 
 (defn something-went-wrong []
-  (error-msg "Something went wrong. Please try again."))
+  (error-msg "Error: Something went wrong. Please try again."))

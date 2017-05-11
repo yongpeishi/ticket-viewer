@@ -10,5 +10,3 @@
 
 (reagent/render-component [container]
                           (. js/document (getElementById "app")))
-
-(defn on-js-reload [])

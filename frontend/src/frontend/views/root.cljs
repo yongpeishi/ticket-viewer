@@ -5,9 +5,10 @@
 
 (defn root-element [state]
   (let [{:keys [number-entered details]} (:ticket state)]
-    [:div
+    [:div.container
      (:h1 "Ticket Viewer")
      (get-ticket-form number-entered)
+     [:hr]
      (case (:screen state)
        :single-ticket (ticket details)
        :not-found     (err/not-found)
