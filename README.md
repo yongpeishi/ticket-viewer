@@ -80,3 +80,12 @@ The script will download the librabry dependency and start the server at [localh
 Enter a Zendesk ticket number (eg. `1`) into the input box on the browser. The ticket information (subject, description, and last updated date) will be displayed.
 
 If you enter an invalid ticket number, you'll see an error message.
+
+---
+
+## Future Improvement
+
+* Add test coverage for frontend code.
+* Better error handling. At the moment users will see the same 'Something went wrong' message on any error other than 404.
+* If scalability is a requirement, the backend can be changed to call Zendesk API asynchronously.
+* Additional features
