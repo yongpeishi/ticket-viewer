@@ -4,7 +4,7 @@ This app provides the browser UI to view Zendesk tickets. The tickets informatio
 
 ## Setup
 
-To get an interactive development environment run:
+(Assumming you have leiningen installed) To get an interactive development environment run:
 
     lein figwheel
 
