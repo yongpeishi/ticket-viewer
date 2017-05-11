@@ -1,14 +1,15 @@
 (ns frontend.views.root
-  (:require [frontend.app-state :refer [app-state]]
-            [frontend.views.view-options :refer [view-options]]
+  (:require [frontend.views.view-options :refer [view-options]]
             [frontend.views.ticket :refer [ticket]]
             [frontend.views.error :as err]))
 
-(defn root-element []
-  [:div
-   (view-options)
-   (case (:screen @app-state)
-     :single-ticket (ticket)
-     :not-found     (err/not-found)
-     :init          nil
-     (err/something-went-wrong))])
+(defn root-element [state]
+  (let [{:keys [number-entered details]} (:ticket state)]
+    [:div
+     (:h1 "Ticket Viewer")
+     (view-options number-entered)
+     (case (:screen state)
+       :single-ticket (ticket details)
+       :not-found     (err/not-found)
+       :init          nil
+       (err/something-went-wrong))]))
