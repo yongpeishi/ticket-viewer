@@ -10,7 +10,7 @@
                     :value     (get-in @app-state [:ticket :number-entered])
                     :on-change c/set-ticket-number}]]
     [:button {:type     "submit"
-              :on-click c/get-ticket-handler}
+              :on-click c/get-ticket}
      "Submit"]]])
 
 

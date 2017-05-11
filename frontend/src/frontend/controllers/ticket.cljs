@@ -9,11 +9,17 @@
     (swap! app-state (fn [state]
                        (m/set-number state value)))))
 
-(defn get-ticket-handler []
+(defn handle-error-response [{:keys [status]}]
+  (swap! app-state (fn [state]
+                     m/update-page-with-error state status)))
+
+(defn get-ticket []
   (go
-    (let [number  (get-in @app-state [:ticket :number-entered])
-          details (<! (api/get-ticket number))]
-      (swap! app-state (fn [state]
-                         (m/update-ticket-details state details))))))
+    (let [number         (get-in @app-state [:ticket :number-entered])
+          [:ok response] (<! (api/get-ticket number))]
+      (if :ok
+        (swap! app-state (fn [state]
+                           (m/update-ticket-details state response)))
+        (handle-error-response response)))))
 
 
