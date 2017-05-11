@@ -2,7 +2,7 @@
   (:require [reagent.core :as reagent]))
 
 (defonce app-state
-  (reagent/atom {:display nil
+  (reagent/atom {:screen :init
                  :ticket {:number-entered ""
                           :details        {}}}))
 

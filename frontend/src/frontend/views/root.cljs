@@ -7,8 +7,8 @@
 (defn root-element []
   [:div
    (view-options)
-   (case (:display @app-state)
-     :single-ticket        (ticket)
-     :not-found            (err/not-found)
-     :something-went-wrong (err/something-went-wrong)
-     nil)])
+   (case (:screen @app-state)
+     :single-ticket (ticket)
+     :not-found     (err/not-found)
+     :init          nil
+     (err/something-went-wrong))])
