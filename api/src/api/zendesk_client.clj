@@ -16,7 +16,7 @@
   (let [convert-to-keyword true]
     (-> (json/parse-string response-body convert-to-keyword)
         :ticket
-        (select-keys [:subject :description :updated_at]))))
+        (select-keys [:subject :description :updated_at :id]))))
 
 (defn get-ticket [ticket-number config]
   (let [endpoint              (api-url (:subdomain config))

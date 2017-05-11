@@ -7,6 +7,6 @@
       [:div
        [:h2 "Displaying ticket #" (:id details)]
        [:div.ticket-details
-        [:p "Subject: " (:subject details)]
-        [:p "Description: " (:description details)]
-        [:p "Last updated at: " (:updated-at details)]]])))
+        [:p [:span.label "Subject: "]         [:span (:subject details)]]
+        [:p [:span.label "Description: "]     [:span (:description details)]]
+        [:p [:span.label "Last updated at: "] [:span (:updated_at details)]]]])))

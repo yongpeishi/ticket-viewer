@@ -3,7 +3,7 @@
             [compojure.route :as route]
             [ring.middleware.json :refer [wrap-json-response]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [ring.util.response :refer [response]]
+            [ring.util.response :refer [response header]]
             [api.zendesk-client :refer [get-ticket]]))
 
 (defn handle-error [e]
@@ -29,10 +29,18 @@
 
    (route/not-found "Not Found")))
 
+(defn wrap-cors-headers [handler]
+  (fn [request]
+    (let [response (handler request)]
+      (-> response
+          (header "Access-Control-Allow-Origin" "*")
+          (header "Access-Control-Allow-Methods" "GET,OPTIONS")))))
+
 (def app
   (let [config {:user      (System/getenv "ZENDESK_EMAIL")
                 :password  (System/getenv "ZENDESK_PASSWORD")
                 :subdomain (System/getenv "ZENDESK_SUBDOMAIN")}]
     (-> (app-routes config)
+        (wrap-cors-headers)
         (wrap-json-response)
         (wrap-defaults site-defaults))))
