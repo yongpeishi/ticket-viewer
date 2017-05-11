@@ -8,7 +8,3 @@
       (assoc-in [:screen] :single-ticket)
       (assoc-in [:ticket :details] details)))
 
-(defn update-page-with-error [state status]
-  (assoc-in state [:screen] (if (= 404 status)
-                               :not-found
-                               :something-went-wrong)))
