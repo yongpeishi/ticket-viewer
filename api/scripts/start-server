@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-./scripts/lein ring server
+./scripts/lein ring server-headless
