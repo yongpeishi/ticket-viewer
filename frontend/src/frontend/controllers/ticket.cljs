@@ -9,15 +9,15 @@
 
 (defn get-ticket [number]
   (println "******I should call api and get ticket: " number)
-  {:subject     "Panda is missing"
+  {:id          99999
+   :subject     "Panda is missing"
    :description "something something something"
    :updated-at  "some date"})
 
 (defn get-ticket-handler []
-  (let [number (get-in @app-state [:single :number])
+  (let [number (get-in @app-state [:ticket :number-entered])
         details (get-ticket number)]
     (swap! app-state (fn [state]
-                       (m/update-ticket-details state details))))
-  (println @app-state))
+                       (m/update-ticket-details state details)))))
 
 

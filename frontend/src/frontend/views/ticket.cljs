@@ -2,10 +2,10 @@
   (:require [frontend.app-state :refer [app-state]]))
 
 (defn ticket []
-  (let [{:keys [number-entered details]} (:ticket @app-state)]
+  (let [details (get-in @app-state [:ticket :details])]
     (if (not (empty? details))
       [:div
-       [:h2 "Displaying ticket #" number-entered]
+       [:h2 "Displaying ticket #" (:id details)]
        [:div.ticket-details
         [:p "Subject: " (:subject details)]
         [:p "Description: " (:description details)]

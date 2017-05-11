@@ -10,8 +10,7 @@
   [:div.container
    (:h1 "Ticket Viewer")
    (view-options)
-   (ticket)
-   ])
+   (ticket)])
 
 (reagent/render-component [container]
                           (. js/document (getElementById "app")))
