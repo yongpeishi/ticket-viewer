@@ -1,7 +1,7 @@
-(ns frontend.views.view-options
+(ns frontend.views.get-ticket-form
   (:require [frontend.controllers.ticket :as c]))
 
-(defn view-options [number-entered]
+(defn get-ticket-form [number-entered]
   [:div
    [:p
     [:span "View ticket number:"]
